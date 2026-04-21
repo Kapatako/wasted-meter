@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Primary SEO -->
+<title>WastedMeter — Calculate How Much of Your Life You've Wasted</title>
+<meta name="description" content="Find out how many hours and dollars you've wasted on Netflix, social media, bad relationships, and procrastination. Get your Wasted Score and shareable life summary.">
+<meta name="keywords" content="wasted time calculator, how much time have I wasted, procrastination calculator, Netflix hours wasted, social media time wasted, life calculator, time wasted on phone, wasted money calculator, productivity calculator, life audit tool">
+<meta name="author" content="WastedMeter">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://wastedmeter.com/">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wastedmeter.com/">
+<meta property="og:title" content="WastedMeter — How Much of Your Life Have You Wasted?">
+<meta property="og:description" content="9 honest questions. One brutal score. Calculate the real cost of your Netflix binges, doom-scrolling, and procrastination — then share the result.">
+<meta property="og:image" content="https://wastedmeter.com/og-image.png">
+<meta property="og:site_name" content="WastedMeter">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://wastedmeter.com/">
+<meta name="twitter:title" content="WastedMeter — How Much of Your Life Have You Wasted?">
+<meta name="twitter:description" content="9 honest questions. One brutal score. Calculate the real cost of your Netflix binges, doom-scrolling, and procrastination.">
+<meta name="twitter:image" content="https://wastedmeter.com/og-image.png">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "WastedMeter",
+  "url": "https://wastedmeter.com",
+  "description": "Calculate how much of your life you've wasted on Netflix, social media, bad habits, and procrastination. Get a shareable Wasted Score.",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Any",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "Wasted time calculator",
+    "Procrastination cost calculator",
+    "Netflix hours calculator",
+    "Social media time tracker",
+    "Life audit tool",
+    "Shareable wasted score"
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #13131a;
+    --surface2: #1c1c28;
+    --border: #2a2a3d;
+    --accent: #ff4757;
+    --accent2: #ff6b35;
+    --text: #f0f0f8;
+    --muted: #6b6b8a;
+    --green: #2ed573;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Remove number input spinners */
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; }
+  input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(255,71,87,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,71,87,0.1);
+    border: 1px solid rgba(255,71,87,0.3);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.5rem, 11vw, 8rem);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.65;
+    margin-bottom: 3rem;
+  }
+
+  .btn-start {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white;
+    border: none;
+    padding: 1.1rem 3rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: -0.01em;
+    font-family: inherit;
+  }
+
+  .btn-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(255,71,87,0.35);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    margin-top: 4rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  .hero-stats span { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+  .hero-stats strong { color: var(--text); font-size: 1.5rem; font-weight: 700; }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--border);
+    z-index: 100;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+
+  /* QUIZ */
+  .quiz-container {
+    display: none;
+    min-height: 100vh;
+    padding: 2rem;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .step {
+    display: none;
+    animation: fadeUp 0.4s ease forwards;
+    padding: 5rem 0 3rem;
+  }
+
+  .step.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-num {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .step-emoji { font-size: 2.8rem; margin-bottom: 1rem; display: block; }
+
+  .step h2 {
+    font-size: clamp(1.6rem, 4vw, 2.1rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.025em;
+  }
+
+  .step .subtitle {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.55;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .input-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .input-row label {
+    font-size: 0.83rem;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* Custom number input wrapper */
+  .num-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .num-wrap input {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.9rem 3.5rem 0.9rem 1.1rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    width: 100%;
+  }
+
+  .num-wrap input:focus {
+    border-color: var(--accent);
+    background: #16161f;
+  }
+
+  .num-wrap input::placeholder { color: var(--muted); opacity: 0.6; }
+
+  .num-btns {
+    position: absolute;
+    right: 0.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .num-btn {
+    width: 22px; height: 22px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    font-size: 0.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .num-btn:hover { background: var(--accent); border-color: var(--accent); color: white; }
+
+  .input-row select {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.9rem 1.1rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .input-row select:focus { border-color: var(--accent); }
+  .input-row select option { background: #13131a; }
+
+  /* Live calc */
+  .live-calc {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2.5rem;
+    min-height: 64px;
+    transition: border-color 0.3s;
+  }
+
+  .live-calc.active { border-color: rgba(255,71,87,0.4); }
+
+  .live-calc .calc-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    margin-bottom: 0.4rem;
+  }
+
+  .live-calc .calc-value {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--accent);
+    transition: color 0.3s;
+  }
+
+  .live-calc .calc-value.neutral { color: var(--muted); font-weight: 400; font-size: 0.95rem; }
+
+  /* Buttons */
+  .btn-next {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.9rem 2.5rem;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .btn-next:hover { background: var(--surface); border-color: #444; transform: translateY(-1px); }
+
+  .btn-next.primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-color: transparent;
+    color: white;
+  }
+
+  .btn-next.primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255,71,87,0.35); }
+
+  /* RESULT */
+  .result-container {
+    display: none;
+    padding: 2rem;
+    max-width: 680px;
+    margin: 0 auto;
+    padding-top: 5rem;
+  }
+
+  .result-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .result-header h2 {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  .result-header p { color: var(--muted); font-size: 1rem; }
+
+  .verdict-card {
+    background: linear-gradient(135deg, rgba(255,71,87,0.08), rgba(255,107,53,0.04));
+    border: 1px solid rgba(255,71,87,0.25);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .verdict-score {
+    font-size: 5.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .verdict-label {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 1.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  .verdict-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .verdict-desc {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.4rem;
+    transition: border-color 0.2s;
+  }
+
+  .stat-card:hover { border-color: #3a3a55; }
+  .stat-card .stat-icon { font-size: 1.4rem; margin-bottom: 0.7rem; display: block; }
+  .stat-card .stat-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
+  .stat-card .stat-value { font-size: 1.35rem; font-weight: 800; color: var(--accent); }
+  .stat-card .stat-sub { font-size: 0.73rem; color: var(--muted); margin-top: 0.25rem; }
+
+  .breakdown {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .breakdown-header {
+    padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+
+  .breakdown-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.95rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .breakdown-item:last-child { border-bottom: none; }
+  .breakdown-item:hover { background: var(--surface2); }
+
+  .breakdown-item .bi-icon { font-size: 1.35rem; width: 1.8rem; text-align: center; flex-shrink: 0; }
+  .breakdown-item .bi-info { flex: 1; min-width: 0; }
+  .breakdown-item .bi-title { font-size: 0.9rem; font-weight: 600; }
+  .breakdown-item .bi-sub { font-size: 0.76rem; color: var(--muted); margin-top: 1px; }
+  .breakdown-item .bi-val { font-size: 0.9rem; font-weight: 700; color: var(--accent); text-align: right; white-space: nowrap; flex-shrink: 0; }
+
+  .summary-quote {
+    background: var(--surface2);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .summary-quote strong { color: var(--text); }
+
+  .share-section {
+    text-align: center;
+    padding: 2rem 0 5rem;
+  }
+
+  .share-section h3 { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+  .share-section p { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.75rem; }
+
+  .share-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+
+  .btn-share {
+    padding: 0.75rem 1.6rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .btn-share:hover { border-color: var(--accent); color: var(--accent); background: rgba(255,71,87,0.05); }
+
+  .btn-restart {
+    display: block;
+    margin: 1.75rem auto 0;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 0.83rem;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+
+  .btn-restart:hover { color: var(--text); }
+
+  /* FAQ section for SEO */
+  .faq-section {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .faq-section h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .faq-item { margin-bottom: 1.5rem; }
+
+  .faq-item h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+    cursor: pointer;
+  }
+
+  .faq-item p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-badge">Honesty hurts</div>
+  <h1>Wasted<br><span>Meter</span></h1>
+  <p>How much of your life have you actually lived — and how much have you thrown away? 9 questions, one brutal score.</p>
+  <button class="btn-start" onclick="startQuiz()">Calculate My Score →</button>
+  <div class="hero-stats">
+    <span><strong>9</strong> Questions</span>
+    <span><strong>2 min</strong> To Complete</span>
+    <span><strong>1</strong> Hard Truth</span>
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<div class="progress-bar-wrap" id="progressWrap" style="display:none">
+  <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-container" id="quiz">
+
+  <!-- STEP 1: Netflix -->
+  <div class="step" id="step-1">
+    <div class="step-num">01 / 09</div>
+    <span class="step-emoji">📺</span>
+    <h2>Netflix, shows & screen time</h2>
+    <p class="subtitle">No judgment — we're just counting.</p>
+    <div class="input-group">
+      <div class="input-row">
+        <label>How many hours per day do you watch TV / streaming?</label>
+        <div class="num-wrap">
+          <input type="number" id="netflix-daily" placeholder="e.g. 2" min="0" max="20" oninput="calcNetflix()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('netflix-daily',1,'calcNetflix')">▲</button>
+            <button class="num-btn" onclick="adjust('netflix-daily',-1,'calcNetflix')">▼</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label>How many years has this been going on?</label>
+        <div class="num-wrap">
+          <input type="number" id="netflix-years" placeholder="e.g. 5" min="0" max="50" oninput="calcNetflix()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('netflix-years',1,'calcNetflix')">▲</button>
+            <button class="num-btn" onclick="adjust('netflix-years',-1,'calcNetflix')">▼</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="live-calc" id="calc-1">
+      <div class="calc-label">Total time in front of a screen</div>
+      <div class="calc-value neutral" id="netflix-result">Enter numbers above</div>
+    </div>
+    <button class="btn-next" onclick="nextStep(1)">Continue →</button>
+  </div>
+
+  <!-- STEP 2: Relationships -->
+  <div class="step" id="step-2">
+    <div class="step-num">02 / 09</div>
+    <span class="step-emoji">💔</span>
+    <h2>Relationships that didn't work out</h2>
+    <p class="subtitle">They're over — but the time spent isn't coming back.</p>
+    <div class="input-group">
+      <div class="input-row">
+        <label>How many relationships have ended?</label>
+        <div class="num-wrap">
+          <input type="number" id="rel-count" placeholder="e.g. 3" min="0" max="50" oninput="calcRel()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('rel-count',1,'calcRel')">▲</button>
+            <button class="num-btn" onclick="adjust('rel-count',-1,'calcRel')">▼</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label>Average duration of each (months)?</label>
+        <div class="num-wrap">
+          <input type="number" id="rel-months" placeholder="e.g. 8" min="0" max="120" oninput="calcRel()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('rel-months',1,'calcRel')">▲</button>
+            <button class="num-btn" onclick="adjust('rel-months',-1,'calcRel')">▼</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="live-calc" id="calc-2">
+      <div class="calc-label">Time invested in ended relationships</div>
+      <div class="calc-value neutral" id="rel-result">Enter numbers above</div>
+    </div>
+    <button class="btn-next" onclick="nextStep(2)">Continue →</button>
+  </div>
+
+  <!-- STEP 3: Gym -->
+  <div class="step" id="step-3">
+    <div class="step-num">03 / 09</div>
+    <span class="step-emoji">🏋️</span>
+    <h2>Gym memberships you never used</h2>
+    <p class="subtitle">"This time I'll actually go." — You, every January.</p>
+    <div class="input-group">
+      <div class="input-row">
+        <label>How many times have you signed up for a gym?</label>
+        <div class="num-wrap">
+          <input type="number" id="gym-count" placeholder="e.g. 4" min="0" max="30" oninput="calcGym()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('gym-count',1,'calcGym')">▲</button>
+            <button class="num-btn" onclick="adjust('gym-count',-1,'calcGym')">▼</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label>Monthly membership cost ($)?</label>
+        <div class="num-wrap">
+          <input type="number" id="gym-price" placeholder="e.g. 40" min="0" max="1000" oninput="calcGym()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('gym-price',5,'calcGym')">▲</button>
+            <button class="num-btn" onclick="adjust('gym-price',-5,'calcGym')">▼</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label>How many months before you quit each time?</label>
+        <div class="num-wrap">
+          <input type="number" id="gym-months" placeholder="e.g. 2" min="0" max="60" oninput="calcGym()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('gym-months',1,'calcGym')">▲</button>
+            <button class="num-btn" onclick="adjust('gym-months',-1,'calcGym')">▼</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="live-calc" id="calc-3">
+      <div class="calc-label">Money paid without showing up</div>
+      <div class="calc-value neutral" id="gym-result">Enter numbers above</div>
+    </div>
+    <button class="btn-next" onclick="nextStep(3)">Continue →</button>
+  </div>
+
+  <!-- STEP 4: Social Media -->
+  <div class="step" id="step-4">
+    <div class="step-num">04 / 09</div>
+    <span class="step-emoji">📱</span>
+    <h2>Social media & doom-scrolling</h2>
+    <p class="subtitle">Instagram, TikTok, X... Scroll. Scroll. Scroll.</p>
+    <div class="input-group">
+      <div class="input-row">
+        <label>Hours per day on social media?</label>
+        <div class="num-wrap">
+          <input type="number" id="sm-daily" placeholder="e.g. 3" min="0" max="20" oninput="calcSM()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('sm-daily',1,'calcSM')">▲</button>
+            <button class="num-btn" onclick="adjust('sm-daily',-1,'calcSM')">▼</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label>How many years has this been a habit?</label>
+        <div class="num-wrap">
+          <input type="number" id="sm-years" placeholder="e.g. 8" min="0" max="20" oninput="calcSM()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('sm-years',1,'calcSM')">▲</button>
+            <button class="num-btn" onclick="adjust('sm-years',-1,'calcSM')">▼</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="live-calc" id="calc-4">
+      <div class="calc-label">Total time doom-scrolling</div>
+      <div class="calc-value neutral" id="sm-result">Enter numbers above</div>
+    </div>
+    <button class="btn-next" onclick="nextStep(4)">Continue →</button>
+  </div>
+
+  <!-- STEP 5: Food -->
+  <div class="step" id="step-5">
+    <div class="step-num">05 / 09</div>
+    <span class="step-emoji">🍔</span>
+    <h2>Takeout & eating out</h2>
+    <p class="subtitle">Every order starts as a one-time thing.</p>
+    <div class="input-group">
+      <div class="input-row">
+        <label>How many times per week do you order food or eat out?</label>
+        <div class="num-wrap">
+          <input type="number" id="food-weekly" placeholder="e.g. 5" min="0" max="21" oninput="calcFood()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('food-weekly',1,'calcFood')">▲</button>
+            <button class="num-btn" onclick="adjust('food-weekly',-1,'calcFood')">▼</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label>Average spend per meal ($)?</label>
+        <div class="num-wrap">
+          <input type="number" id="food-price" placeholder="e.g. 20" min="0" max="500" oninput="calcFood()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('food-price',5,'calcFood')">▲</button>
+            <button class="num-btn" onclick="adjust('food-price',-5,'calcFood')">▼</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label>How many years has this been going on?</label>
+        <div class="num-wrap">
+          <input type="number" id="food-years" placeholder="e.g. 4" min="0" max="50" oninput="calcFood()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('food-years',1,'calcFood')">▲</button>
+            <button class="num-btn" onclick="adjust('food-years',-1,'calcFood')">▼</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="live-calc" id="calc-5">
+      <div class="calc-label">Total spent on food outside</div>
+      <div class="calc-value neutral" id="food-result">Enter numbers above</div>
+    </div>
+    <button class="btn-next" onclick="nextStep(5)">Continue →</button>
+  </div>
+
+  <!-- STEP 6: Unfinished projects -->
+  <div class="step" id="step-6">
+    <div class="step-num">06 / 09</div>
+    <span class="step-emoji">💡</span>
+    <h2>Projects & ideas you abandoned</h2>
+    <p class="subtitle">Started. Got excited. Then... nothing.</p>
+    <div class="input-group">
+      <div class="input-row">
+        <label>How many projects or ideas have you abandoned?</label>
+        <div class="num-wrap">
+          <input type="number" id="proj-count" placeholder="e.g. 7" min="0" max="100" oninput="calcProj()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('proj-count',1,'calcProj')">▲</button>
+            <button class="num-btn" onclick="adjust('proj-count',-1,'calcProj')">▼</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label>Average months of effort before quitting?</label>
+        <div class="num-wrap">
+          <input type="number" id="proj-months" placeholder="e.g. 1" min="0" max="60" oninput="calcProj()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('proj-months',1,'calcProj')">▲</button>
+            <button class="num-btn" onclick="adjust('proj-months',-1,'calcProj')">▼</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="live-calc" id="calc-6">
+      <div class="calc-label">Time spent on unfinished work</div>
+      <div class="calc-value neutral" id="proj-result">Enter numbers above</div>
+    </div>
+    <button class="btn-next" onclick="nextStep(6)">Continue →</button>
+  </div>
+
+  <!-- STEP 7: Commute -->
+  <div class="step" id="step-7">
+    <div class="step-num">07 / 09</div>
+    <span class="step-emoji">🚗</span>
+    <h2>Commuting & time in transit</h2>
+    <p class="subtitle">Most people never add this up. You're about to.</p>
+    <div class="input-group">
+      <div class="input-row">
+        <label>Hours per day spent commuting (car, subway, bus)?</label>
+        <div class="num-wrap">
+          <input type="number" id="traffic-daily" placeholder="e.g. 2" min="0" max="12" oninput="calcTraffic()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('traffic-daily',1,'calcTraffic')">▲</button>
+            <button class="num-btn" onclick="adjust('traffic-daily',-1,'calcTraffic')">▼</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label>How many years has this routine lasted?</label>
+        <div class="num-wrap">
+          <input type="number" id="traffic-years" placeholder="e.g. 5" min="0" max="50" oninput="calcTraffic()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('traffic-years',1,'calcTraffic')">▲</button>
+            <button class="num-btn" onclick="adjust('traffic-years',-1,'calcTraffic')">▼</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="live-calc" id="calc-7">
+      <div class="calc-label">Total hours in transit</div>
+      <div class="calc-value neutral" id="traffic-result">Enter numbers above</div>
+    </div>
+    <button class="btn-next" onclick="nextStep(7)">Continue →</button>
+  </div>
+
+  <!-- STEP 8: Sleep -->
+  <div class="step" id="step-8">
+    <div class="step-num">08 / 09</div>
+    <span class="step-emoji">😴</span>
+    <h2>Late nights & stolen mornings</h2>
+    <p class="subtitle">Every "just one more episode" costs you a morning.</p>
+    <div class="input-group">
+      <div class="input-row">
+        <label>How many hours later than intended do you go to bed on average?</label>
+        <div class="num-wrap">
+          <input type="number" id="sleep-hours" placeholder="e.g. 2" min="0" max="8" step="0.5" oninput="calcSleep()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('sleep-hours',0.5,'calcSleep')">▲</button>
+            <button class="num-btn" onclick="adjust('sleep-hours',-0.5,'calcSleep')">▼</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label>How many years has this been a habit?</label>
+        <div class="num-wrap">
+          <input type="number" id="sleep-years" placeholder="e.g. 6" min="0" max="50" oninput="calcSleep()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('sleep-years',1,'calcSleep')">▲</button>
+            <button class="num-btn" onclick="adjust('sleep-years',-1,'calcSleep')">▼</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="live-calc" id="calc-8">
+      <div class="calc-label">Sleep robbed from yourself</div>
+      <div class="calc-value neutral" id="sleep-result">Enter numbers above</div>
+    </div>
+    <button class="btn-next" onclick="nextStep(8)">Continue →</button>
+  </div>
+
+  <!-- STEP 9: Procrastination -->
+  <div class="step" id="step-9">
+    <div class="step-num">09 / 09</div>
+    <span class="step-emoji">⏰</span>
+    <h2>The one thing you keep putting off</h2>
+    <p class="subtitle">That decision. You know the one.</p>
+    <div class="input-group">
+      <div class="input-row">
+        <label>What are you procrastinating on most?</label>
+        <select id="procr-type" oninput="calcProcr()">
+          <option value="">Choose...</option>
+          <option value="career">Career change / starting a business</option>
+          <option value="health">Health issue / seeing a doctor</option>
+          <option value="skill">Learning a new skill</option>
+          <option value="move">Moving to a new city</option>
+          <option value="relation">Ending or starting a relationship</option>
+          <option value="finance">Investing / building savings</option>
+          <option value="creative">Creative project (book, music, art)</option>
+          <option value="other">Something else</option>
+        </select>
+      </div>
+      <div class="input-row">
+        <label>How many years have you been putting it off?</label>
+        <div class="num-wrap">
+          <input type="number" id="procr-years" placeholder="e.g. 3" min="0" max="50" oninput="calcProcr()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('procr-years',1,'calcProcr')">▲</button>
+            <button class="num-btn" onclick="adjust('procr-years',-1,'calcProcr')">▼</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="live-calc" id="calc-9">
+      <div class="calc-label">Years of delay</div>
+      <div class="calc-value neutral" id="procr-result">Enter numbers above</div>
+    </div>
+    <button class="btn-next primary" onclick="showResult()">See My Score →</button>
+  </div>
+
+</div>
+
+<!-- RESULT -->
+<div class="result-container" id="result">
+
+  <div class="result-header">
+    <h2>Your Life Summary</h2>
+    <p>The numbers don't lie. Here's yours.</p>
+  </div>
+
+  <div class="verdict-card">
+    <div class="verdict-score" id="waste-score">0%</div>
+    <div class="verdict-label">estimated percentage of your life wasted</div>
+    <div class="verdict-title" id="verdict-title">—</div>
+    <div class="verdict-desc" id="verdict-desc">—</div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-icon">⏱️</span>
+      <div class="stat-label">Total time wasted</div>
+      <div class="stat-value" id="total-hours">—</div>
+      <div class="stat-sub" id="total-hours-sub">in years</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon">💸</span>
+      <div class="stat-label">Money wasted</div>
+      <div class="stat-value" id="total-money">—</div>
+      <div class="stat-sub">gone forever</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon">📅</span>
+      <div class="stat-label">Daily waste average</div>
+      <div class="stat-value" id="daily-waste">—</div>
+      <div class="stat-sub">hours/day going nowhere</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-icon">🌍</span>
+      <div class="stat-label">With this time you could've</div>
+      <div class="stat-value" id="could-do">—</div>
+      <div class="stat-sub" id="could-do-sub">—</div>
+    </div>
+  </div>
+
+  <div class="breakdown" id="breakdown-list">
+    <div class="breakdown-header">Full Breakdown</div>
+  </div>
+
+  <div class="summary-quote" id="summary-quote">—</div>
+
+  <div class="share-section">
+    <h3>Share it. Hurt your friends too.</h3>
+    <p>Your score is ready. Make someone else uncomfortable.</p>
+    <div class="share-btns">
+      <button class="btn-share" onclick="copyResult()">📋 Copy Result</button>
+      <button class="btn-share" onclick="shareTwitter()">𝕏 Share on X</button>
+      <button class="btn-share" onclick="shareWhatsapp()">💬 WhatsApp</button>
+    </div>
+    <button class="btn-restart" onclick="restart()">Start over</button>
+  </div>
+
+</div>
+
+<!-- FAQ — SEO content -->
+<section class="faq-section" id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item">
+    <h3>How does WastedMeter calculate my wasted time?</h3>
+    <p>WastedMeter takes your self-reported habits — screen time, commuting, social media, late nights — multiplies them across the years you've had those habits, and gives you a realistic estimate of how many hours have slipped by. It's not scientific, but it's honest.</p>
+  </div>
+  <div class="faq-item">
+    <h3>How much time does the average person waste per day?</h3>
+    <p>Studies show the average person spends 6–7 hours per day on TV and social media combined. Add commuting (avg. 1 hour/day), poor sleep habits, and unproductive routines — and most people waste 8–10 hours daily on low-value activities.</p>
+  </div>
+  <div class="faq-item">
+    <h3>How much time does the average person spend on social media?</h3>
+    <p>The global average is approximately 2 hours 27 minutes per day (DataReportal 2025). Over 10 years, that's roughly 3.7 years of waking life spent scrolling.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Is WastedMeter accurate?</h3>
+    <p>WastedMeter is a reflective tool, not a precise tracker. The goal isn't perfect accuracy — it's to make the invisible visible. Seeing your habits expressed in years instead of hours tends to change your perspective.</p>
+  </div>
+  <div class="faq-item">
+    <h3>What can I do after seeing my score?</h3>
+    <p>Start with one habit. If you cut 1 hour of daily social media, you reclaim 15 full days per year. The calculator is a mirror — what you do with the reflection is up to you.</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 WastedMeter · Stop measuring. Start living.</p>
+</footer>
+
+<script>
+  const data = {};
+  const TOTAL_STEPS = 9;
+
+  function startQuiz() {
+    document.getElementById('hero').style.display = 'none';
+    document.getElementById('quiz').style.display = 'block';
+    document.getElementById('progressWrap').style.display = 'block';
+    showStep(1);
+  }
+
+  function showStep(n) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    const el = document.getElementById('step-' + n);
+    if (el) {
+      el.classList.add('active');
+      updateProgress(n);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  function updateProgress(n) {
+    document.getElementById('progressBar').style.width = (((n - 1) / TOTAL_STEPS) * 100) + '%';
+  }
+
+  function nextStep(current) {
+    if (current < TOTAL_STEPS) showStep(current + 1);
+  }
+
+  function adjust(id, delta, calcFn) {
+    const input = document.getElementById(id);
+    const current = parseFloat(input.value) || 0;
+    const step = parseFloat(input.step) || 1;
+    const min = parseFloat(input.min) ?? 0;
+    const max = parseFloat(input.max) ?? 9999;
+    const next = Math.min(max, Math.max(min, current + delta));
+    input.value = next % 1 === 0 ? next : next.toFixed(1);
+    window[calcFn]();
+  }
+
+  function fmt(hours) {
+    if (!hours || hours <= 0) return '0 hours';
+    if (hours < 24) return Math.round(hours) + ' hours';
+    const days = Math.round(hours / 24);
+    if (days < 365) return days + ' days';
+    const years = (hours / 8760).toFixed(1);
+    return years + ' years';
+  }
+
+  function fmtMoney(n) {
+    if (!n || n <= 0) return '$0';
+    if (n >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M';
+    if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
+    return '$' + Math.round(n);
+  }
+
+  function setCalc(id, val, text) {
+    const el = document.getElementById(id + '-result');
+    const wrap = el.closest('.live-calc');
+    el.className = 'calc-value' + (val > 0 ? '' : ' neutral');
+    el.textContent = val > 0 ? text : 'Enter numbers above';
+    if (wrap) wrap.classList.toggle('active', val > 0);
+  }
+
+  function calcNetflix() {
+    const daily = +document.getElementById('netflix-daily').value || 0;
+    const years = +document.getElementById('netflix-years').value || 0;
+    data.netflix = daily * 365 * years;
+    setCalc('netflix', data.netflix, fmt(data.netflix) + ' in front of a screen');
+  }
+
+  function calcRel() {
+    const count = +document.getElementById('rel-count').value || 0;
+    const months = +document.getElementById('rel-months').value || 0;
+    data.rel = count * months * 30 * 5;
+    data.relMonths = count * months;
+    setCalc('rel', data.rel, fmt(data.rel) + ' (' + Math.round(count * months) + ' months total)');
+  }
+
+  function calcGym() {
+    const count = +document.getElementById('gym-count').value || 0;
+    const price = +document.getElementById('gym-price').value || 0;
+    const months = +document.getElementById('gym-months').value || 0;
+    data.gym = count * price * months;
+    setCalc('gym', data.gym, fmtMoney(data.gym) + ' paid without going');
+  }
+
+  function calcSM() {
+    const daily = +document.getElementById('sm-daily').value || 0;
+    const years = +document.getElementById('sm-years').value || 0;
+    data.sm = daily * 365 * years;
+    setCalc('sm', data.sm, fmt(data.sm) + ' scrolling');
+  }
+
+  function calcFood() {
+    const weekly = +document.getElementById('food-weekly').value || 0;
+    const price = +document.getElementById('food-price').value || 0;
+    const years = +document.getElementById('food-years').value || 0;
+    data.food = weekly * 52 * price * years;
+    setCalc('food', data.food, fmtMoney(data.food) + ' on takeout');
+  }
+
+  function calcProj() {
+    const count = +document.getElementById('proj-count').value || 0;
+    const months = +document.getElementById('proj-months').value || 0;
+    data.proj = count * months * 30 * 2;
+    data.projCount = count;
+    setCalc('proj', data.proj, fmt(data.proj) + ' on abandoned work');
+  }
+
+  function calcTraffic() {
+    const daily = +document.getElementById('traffic-daily').value || 0;
+    const years = +document.getElementById('traffic-years').value || 0;
+    data.traffic = daily * 250 * years;
+    setCalc('traffic', data.traffic, fmt(data.traffic) + ' in transit');
+  }
+
+  function calcSleep() {
+    const hours = +document.getElementById('sleep-hours').value || 0;
+    const years = +document.getElementById('sleep-years').value || 0;
+    data.sleep = hours * 365 * years;
+    setCalc('sleep', data.sleep, fmt(data.sleep) + ' of stolen sleep');
+  }
+
+  function calcProcr() {
+    const type = document.getElementById('procr-type').value;
+    const years = +document.getElementById('procr-years').value || 0;
+    data.procr = years;
+    data.procrType = type;
+    const el = document.getElementById('procr-result');
+    const wrap = el.closest('.live-calc');
+    if (years > 0 && type) {
+      const labels = { career: 'a career change', health: 'your health', skill: 'that new skill', move: 'moving', relation: 'that relationship decision', finance: 'investing', creative: 'your creative project', other: 'it' };
+      el.className = 'calc-value';
+      el.textContent = years + ' year' + (years !== 1 ? 's' : '') + ' avoiding ' + (labels[type] || 'it');
+      if (wrap) wrap.classList.add('active');
+    } else {
+      el.className = 'calc-value neutral';
+      el.textContent = 'Enter numbers above';
+      if (wrap) wrap.classList.remove('active');
+    }
+  }
+
+  const VERDICTS = [
+    { max: 20, title: "Suspiciously productive", desc: "Either you're incredibly disciplined or you were a little too honest. Either way — impressive." },
+    { max: 35, title: "Average human", desc: "You waste time — but so does everyone. Awareness is already the first step toward change." },
+    { max: 50, title: "There's a serious leak", desc: "A significant chunk of your time and money is quietly slipping away. Small habit shifts add up fast." },
+    { max: 65, title: "Half your life, gone", desc: "Seeing this number is uncomfortable. Good. That discomfort is the beginning of something different." },
+    { max: 80, title: "Urgent intervention needed", desc: "The majority of your life has been running on autopilot. It's not too late — but the clock is ticking." },
+    { max: 101, title: "Legendary waste", desc: "It takes courage to be this honest with yourself. That's the hardest part. The rest is just decisions." }
+  ];
+
+  function showResult() {
+    document.getElementById('quiz').style.display = 'none';
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('progressBar').style.width = '100%';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const netflix = data.netflix || 0;
+    const rel = data.rel || 0;
+    const sm = data.sm || 0;
+    const traffic = data.traffic || 0;
+    const sleep = data.sleep || 0;
+    const proj = data.proj || 0;
+    const gym = data.gym || 0;
+    const food = data.food || 0;
+
+    const totalHours = netflix + rel + sm + traffic + sleep + proj;
+    const totalMoney = gym + food;
+    const dailyWaste = totalHours / (5 * 365);
+    const lifeHours = 30 * 365 * 16;
+    const wasteScore = Math.min(Math.round((totalHours / lifeHours) * 100), 99);
+
+    const verdict = VERDICTS.find(v => wasteScore < v.max) || VERDICTS[VERDICTS.length - 1];
+
+    document.getElementById('waste-score').textContent = wasteScore + '%';
+    document.getElementById('verdict-title').textContent = verdict.title;
+    document.getElementById('verdict-desc').textContent = verdict.desc;
+    document.getElementById('total-hours').textContent = fmt(totalHours);
+    document.getElementById('total-hours-sub').textContent = (totalHours / 8760).toFixed(1) + ' years of your life';
+    document.getElementById('total-money').textContent = fmtMoney(totalMoney);
+    document.getElementById('daily-waste').textContent = dailyWaste.toFixed(1) + 'h';
+
+    let couldDo = '', couldDoSub = '';
+    if (totalHours > 17520) { couldDo = '2+ years'; couldDoSub = 'traveled the entire world'; }
+    else if (totalHours > 8760) { couldDo = '1 year'; couldDoSub = 'mastered a new language'; }
+    else if (totalHours > 4000) { couldDo = '4,000+ hrs'; couldDoSub = 'become a domain expert'; }
+    else if (totalHours > 1000) { couldDo = '1,000+ hrs'; couldDoSub = 'written a book'; }
+    else { couldDo = fmt(totalHours); couldDoSub = 'done something meaningful'; }
+
+    document.getElementById('could-do').textContent = couldDo;
+    document.getElementById('could-do-sub').textContent = couldDoSub;
+
+    const items = [
+      { icon: '📺', title: 'Streaming & TV', sub: 'Screen time', val: fmt(netflix), raw: netflix, type: 'time' },
+      { icon: '📱', title: 'Social Media', sub: 'Doom-scrolling', val: fmt(sm), raw: sm, type: 'time' },
+      { icon: '🚗', title: 'Commuting', sub: 'In transit', val: fmt(traffic), raw: traffic, type: 'time' },
+      { icon: '😴', title: 'Late Nights', sub: 'Stolen sleep', val: fmt(sleep), raw: sleep, type: 'time' },
+      { icon: '💔', title: 'Ended Relationships', sub: 'Time invested', val: fmt(rel), raw: rel, type: 'time' },
+      { icon: '💡', title: 'Abandoned Projects', sub: 'Unfinished work', val: fmt(proj), raw: proj, type: 'time' },
+      { icon: '🏋️', title: 'Unused Gym Memberships', sub: 'Paid without going', val: fmtMoney(gym), raw: gym, type: 'money' },
+      { icon: '🍔', title: 'Takeout & Eating Out', sub: 'Restaurant & delivery', val: fmtMoney(food), raw: food, type: 'money' },
+    ].filter(i => i.raw > 0);
+
+    const breakdown = document.getElementById('breakdown-list');
+    breakdown.innerHTML = '<div class="breakdown-header">Full Breakdown</div>';
+    items.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'breakdown-item';
+      div.innerHTML = `<div class="bi-icon">${item.icon}</div><div class="bi-info"><div class="bi-title">${item.title}</div><div class="bi-sub">${item.sub}</div></div><div class="bi-val">${item.val}</div>`;
+      breakdown.appendChild(div);
+    });
+
+    const procrLabels = { career: 'a career change', health: 'your health', skill: 'learning that skill', move: 'moving', relation: 'that relationship decision', finance: 'investing', creative: 'a creative project', other: 'that important decision' };
+    const procrText = data.procrType ? procrLabels[data.procrType] : 'an important decision';
+    const procrYears = data.procr || 0;
+
+    let quote = `You've spent a total of <strong>${fmt(totalHours)}</strong> on screens, traffic, and habits that didn't serve you. <strong>${fmtMoney(totalMoney)}</strong> paid for things you didn't use. `;
+    if (procrYears > 0) quote += `And you've been avoiding ${procrText} for <strong>${procrYears} year${procrYears !== 1 ? 's' : ''}</strong>. `;
+    quote += `The past is fixed. What happens next isn't.`;
+    document.getElementById('summary-quote').innerHTML = quote;
+
+    data._score = wasteScore;
+    data._totalHours = totalHours;
+    data._totalMoney = totalMoney;
+    data._verdictTitle = verdict.title;
+  }
+
+  function copyResult() {
+    const text = `My WastedMeter Score 🔥\n\n${data._score}% of my life wasted\nTime: ${fmt(data._totalHours)}\nMoney: ${fmtMoney(data._totalMoney)}\nVerdict: "${data._verdictTitle}"\n\nCalculate yours → wastedmeter.com`;
+    navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard!'));
+  }
+
+  function shareTwitter() {
+    const text = encodeURIComponent(`I wasted ${data._score}% of my life — "${data._verdictTitle}"\n\nWastedMeter just humbled me 🔥\n\nCalculate yours → wastedmeter.com`);
+    window.open('https://twitter.com/intent/tweet?text=' + text, '_blank');
+  }
+
+  function shareWhatsapp() {
+    const text = encodeURIComponent(`My WastedMeter score: ${data._score}% of my life wasted. "${data._verdictTitle}" — Check yours: wastedmeter.com`);
+    window.open('https://wa.me/?text=' + text, '_blank');
+  }
+
+  function restart() { location.reload(); }
+</script>
+
+</body>
+</html>
