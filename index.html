@@ -562,6 +562,38 @@
 
   .btn-restart:hover { color: var(--text); }
 
+  /* Projections */
+  .projections {
+    background: var(--surface);
+    border: 1px solid rgba(255,71,87,0.3);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .projections-header {
+    padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    background: rgba(255,71,87,0.06);
+  }
+
+  .proj-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.95rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .proj-row:last-child { border-bottom: none; }
+  .proj-label { font-size: 0.88rem; color: var(--muted); }
+  .proj-val { font-size: 1.05rem; font-weight: 800; color: var(--accent); }
+
   /* FAQ section for SEO */
   .faq-section {
     max-width: 680px;
@@ -617,7 +649,7 @@
   <p>How much of your life have you actually lived — and how much have you thrown away? 9 questions, one brutal score.</p>
   <button class="btn-start" onclick="startQuiz()">Calculate My Score →</button>
   <div class="hero-stats">
-    <span><strong>9</strong> Questions</span>
+    <span><strong>10</strong> Questions</span>
     <span><strong>2 min</strong> To Complete</span>
     <span><strong>1</strong> Hard Truth</span>
   </div>
@@ -631,9 +663,44 @@
 <!-- QUIZ -->
 <div class="quiz-container" id="quiz">
 
-  <!-- STEP 1: Netflix -->
+  <!-- STEP 1: Age & Sleep -->
   <div class="step" id="step-1">
-    <div class="step-num">01 / 09</div>
+    <div class="step-num">01 / 10</div>
+    <span class="step-emoji">🎂</span>
+    <h2>First, let's establish your baseline</h2>
+    <p class="subtitle">Your age and sleep hours let us calculate how much of your life you've truly been awake for.</p>
+    <div class="input-group">
+      <div class="input-row">
+        <label>How old are you?</label>
+        <div class="num-wrap">
+          <input type="number" id="age-years" placeholder="e.g. 30" min="10" max="100" oninput="calcAge()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('age-years',1,'calcAge')">▲</button>
+            <button class="num-btn" onclick="adjust('age-years',-1,'calcAge')">▼</button>
+          </div>
+        </div>
+      </div>
+      <div class="input-row">
+        <label>How many hours do you sleep per day on average?</label>
+        <div class="num-wrap">
+          <input type="number" id="sleep-daily" placeholder="e.g. 7" min="0" max="16" step="0.5" oninput="calcAge()">
+          <div class="num-btns">
+            <button class="num-btn" onclick="adjust('sleep-daily',0.5,'calcAge')">▲</button>
+            <button class="num-btn" onclick="adjust('sleep-daily',-0.5,'calcAge')">▼</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="live-calc" id="calc-age">
+      <div class="calc-label">Your truly awake life so far</div>
+      <div class="calc-value neutral" id="age-result">Enter your age and sleep hours</div>
+    </div>
+    <button class="btn-next" onclick="nextStep(1)">Continue →</button>
+  </div>
+
+  <!-- STEP 2: Netflix -->
+  <div class="step" id="step-2">
+    <div class="step-num">02 / 10</div>
     <span class="step-emoji">📺</span>
     <h2>Netflix, shows & screen time</h2>
     <p class="subtitle">No judgment — we're just counting.</p>
@@ -663,12 +730,12 @@
       <div class="calc-label">Total time in front of a screen</div>
       <div class="calc-value neutral" id="netflix-result">Enter numbers above</div>
     </div>
-    <button class="btn-next" onclick="nextStep(1)">Continue →</button>
+    <button class="btn-next" onclick="nextStep(2)">Continue →</button>
   </div>
 
-  <!-- STEP 2: Relationships -->
-  <div class="step" id="step-2">
-    <div class="step-num">02 / 09</div>
+  <!-- STEP 3: Relationships -->
+  <div class="step" id="step-3">
+    <div class="step-num">03 / 10</div>
     <span class="step-emoji">💔</span>
     <h2>Relationships that didn't work out</h2>
     <p class="subtitle">They're over — but the time spent isn't coming back.</p>
@@ -698,12 +765,12 @@
       <div class="calc-label">Time invested in ended relationships</div>
       <div class="calc-value neutral" id="rel-result">Enter numbers above</div>
     </div>
-    <button class="btn-next" onclick="nextStep(2)">Continue →</button>
+    <button class="btn-next" onclick="nextStep(3)">Continue →</button>
   </div>
 
-  <!-- STEP 3: Gym -->
-  <div class="step" id="step-3">
-    <div class="step-num">03 / 09</div>
+  <!-- STEP 4: Gym -->
+  <div class="step" id="step-4">
+    <div class="step-num">04 / 10</div>
     <span class="step-emoji">🏋️</span>
     <h2>Gym memberships you never used</h2>
     <p class="subtitle">"This time I'll actually go." — You, every January.</p>
@@ -743,12 +810,12 @@
       <div class="calc-label">Money paid without showing up</div>
       <div class="calc-value neutral" id="gym-result">Enter numbers above</div>
     </div>
-    <button class="btn-next" onclick="nextStep(3)">Continue →</button>
+    <button class="btn-next" onclick="nextStep(4)">Continue →</button>
   </div>
 
-  <!-- STEP 4: Social Media -->
-  <div class="step" id="step-4">
-    <div class="step-num">04 / 09</div>
+  <!-- STEP 5: Social Media -->
+  <div class="step" id="step-5">
+    <div class="step-num">05 / 10</div>
     <span class="step-emoji">📱</span>
     <h2>Social media & doom-scrolling</h2>
     <p class="subtitle">Instagram, TikTok, X... Scroll. Scroll. Scroll.</p>
@@ -778,12 +845,12 @@
       <div class="calc-label">Total time doom-scrolling</div>
       <div class="calc-value neutral" id="sm-result">Enter numbers above</div>
     </div>
-    <button class="btn-next" onclick="nextStep(4)">Continue →</button>
+    <button class="btn-next" onclick="nextStep(5)">Continue →</button>
   </div>
 
-  <!-- STEP 5: Food -->
-  <div class="step" id="step-5">
-    <div class="step-num">05 / 09</div>
+  <!-- STEP 6: Food -->
+  <div class="step" id="step-6">
+    <div class="step-num">06 / 10</div>
     <span class="step-emoji">🍔</span>
     <h2>Takeout & eating out</h2>
     <p class="subtitle">Every order starts as a one-time thing.</p>
@@ -823,12 +890,12 @@
       <div class="calc-label">Total spent on food outside</div>
       <div class="calc-value neutral" id="food-result">Enter numbers above</div>
     </div>
-    <button class="btn-next" onclick="nextStep(5)">Continue →</button>
+    <button class="btn-next" onclick="nextStep(6)">Continue →</button>
   </div>
 
-  <!-- STEP 6: Unfinished projects -->
-  <div class="step" id="step-6">
-    <div class="step-num">06 / 09</div>
+  <!-- STEP 7: Unfinished projects -->
+  <div class="step" id="step-7">
+    <div class="step-num">07 / 10</div>
     <span class="step-emoji">💡</span>
     <h2>Projects & ideas you abandoned</h2>
     <p class="subtitle">Started. Got excited. Then... nothing.</p>
@@ -858,12 +925,12 @@
       <div class="calc-label">Time spent on unfinished work</div>
       <div class="calc-value neutral" id="proj-result">Enter numbers above</div>
     </div>
-    <button class="btn-next" onclick="nextStep(6)">Continue →</button>
+    <button class="btn-next" onclick="nextStep(7)">Continue →</button>
   </div>
 
-  <!-- STEP 7: Commute -->
-  <div class="step" id="step-7">
-    <div class="step-num">07 / 09</div>
+  <!-- STEP 8: Commute -->
+  <div class="step" id="step-8">
+    <div class="step-num">08 / 10</div>
     <span class="step-emoji">🚗</span>
     <h2>Commuting & time in transit</h2>
     <p class="subtitle">Most people never add this up. You're about to.</p>
@@ -893,12 +960,12 @@
       <div class="calc-label">Total hours in transit</div>
       <div class="calc-value neutral" id="traffic-result">Enter numbers above</div>
     </div>
-    <button class="btn-next" onclick="nextStep(7)">Continue →</button>
+    <button class="btn-next" onclick="nextStep(8)">Continue →</button>
   </div>
 
-  <!-- STEP 8: Sleep -->
-  <div class="step" id="step-8">
-    <div class="step-num">08 / 09</div>
+  <!-- STEP 9: Sleep -->
+  <div class="step" id="step-9">
+    <div class="step-num">09 / 10</div>
     <span class="step-emoji">😴</span>
     <h2>Late nights & stolen mornings</h2>
     <p class="subtitle">Every "just one more episode" costs you a morning.</p>
@@ -928,12 +995,12 @@
       <div class="calc-label">Sleep robbed from yourself</div>
       <div class="calc-value neutral" id="sleep-result">Enter numbers above</div>
     </div>
-    <button class="btn-next" onclick="nextStep(8)">Continue →</button>
+    <button class="btn-next" onclick="nextStep(9)">Continue →</button>
   </div>
 
-  <!-- STEP 9: Procrastination -->
-  <div class="step" id="step-9">
-    <div class="step-num">09 / 09</div>
+  <!-- STEP 10: Procrastination -->
+  <div class="step" id="step-10">
+    <div class="step-num">10 / 10</div>
     <span class="step-emoji">⏰</span>
     <h2>The one thing you keep putting off</h2>
     <p class="subtitle">That decision. You know the one.</p>
@@ -982,7 +1049,7 @@
 
   <div class="verdict-card">
     <div class="verdict-score" id="waste-score">0%</div>
-    <div class="verdict-label">estimated percentage of your life wasted</div>
+    <div class="verdict-label" id="verdict-label">of your waking life, gone</div>
     <div class="verdict-title" id="verdict-title">—</div>
     <div class="verdict-desc" id="verdict-desc">—</div>
   </div>
@@ -1012,10 +1079,32 @@
       <div class="stat-value" id="could-do">—</div>
       <div class="stat-sub" id="could-do-sub">—</div>
     </div>
+    <div class="stat-card" style="grid-column: 1 / -1;">
+      <span class="stat-icon">👁️</span>
+      <div class="stat-label">Your truly awake life</div>
+      <div class="stat-value" id="awake-years">—</div>
+      <div class="stat-sub" id="awake-years-sub">years spent conscious — sleep subtracted</div>
+    </div>
   </div>
 
   <div class="breakdown" id="breakdown-list">
     <div class="breakdown-header">Full Breakdown</div>
+  </div>
+
+  <div class="projections" id="projections-block">
+    <div class="projections-header">⚠️ If Nothing Changes</div>
+    <div class="proj-row">
+      <div class="proj-label">In 5 years you'll waste another</div>
+      <div class="proj-val" id="proj-5">—</div>
+    </div>
+    <div class="proj-row">
+      <div class="proj-label">In 10 years you'll waste another</div>
+      <div class="proj-val" id="proj-10">—</div>
+    </div>
+    <div class="proj-row">
+      <div class="proj-label">Your daily drip rate (ongoing habits)</div>
+      <div class="proj-val" id="proj-daily">—</div>
+    </div>
   </div>
 
   <div class="summary-quote" id="summary-quote">—</div>
@@ -1064,7 +1153,7 @@
 
 <script>
   const data = {};
-  const TOTAL_STEPS = 9;
+  const TOTAL_STEPS = 10;
 
   function startQuiz() {
     document.getElementById('hero').style.display = 'none';
@@ -1094,7 +1183,6 @@
   function adjust(id, delta, calcFn) {
     const input = document.getElementById(id);
     const current = parseFloat(input.value) || 0;
-    const step = parseFloat(input.step) || 1;
     const min = parseFloat(input.min) ?? 0;
     const max = parseFloat(input.max) ?? 9999;
     const next = Math.min(max, Math.max(min, current + delta));
@@ -1126,10 +1214,30 @@
     if (wrap) wrap.classList.toggle('active', val > 0);
   }
 
+  function calcAge() {
+    const age = +document.getElementById('age-years').value || 0;
+    const sleepPerDay = +document.getElementById('sleep-daily').value || 0;
+    data.age = age;
+    data.sleepPerDay = sleepPerDay;
+    const el = document.getElementById('age-result');
+    const wrap = el.closest('.live-calc');
+    if (age > 0 && sleepPerDay > 0) {
+      const awakeYears = (age * (24 - sleepPerDay) / 24).toFixed(1);
+      el.className = 'calc-value';
+      el.textContent = awakeYears + ' years truly awake out of ' + age;
+      if (wrap) wrap.classList.add('active');
+    } else {
+      el.className = 'calc-value neutral';
+      el.textContent = 'Enter your age and sleep hours';
+      if (wrap) wrap.classList.remove('active');
+    }
+  }
+
   function calcNetflix() {
     const daily = +document.getElementById('netflix-daily').value || 0;
     const years = +document.getElementById('netflix-years').value || 0;
     data.netflix = daily * 365 * years;
+    data.netflixDaily = daily;
     setCalc('netflix', data.netflix, fmt(data.netflix) + ' in front of a screen');
   }
 
@@ -1153,6 +1261,7 @@
     const daily = +document.getElementById('sm-daily').value || 0;
     const years = +document.getElementById('sm-years').value || 0;
     data.sm = daily * 365 * years;
+    data.smDaily = daily;
     setCalc('sm', data.sm, fmt(data.sm) + ' scrolling');
   }
 
@@ -1176,6 +1285,7 @@
     const daily = +document.getElementById('traffic-daily').value || 0;
     const years = +document.getElementById('traffic-years').value || 0;
     data.traffic = daily * 250 * years;
+    data.trafficDaily = daily;
     setCalc('traffic', data.traffic, fmt(data.traffic) + ' in transit');
   }
 
@@ -1183,6 +1293,7 @@
     const hours = +document.getElementById('sleep-hours').value || 0;
     const years = +document.getElementById('sleep-years').value || 0;
     data.sleep = hours * 365 * years;
+    data.sleepLateDaily = hours;
     setCalc('sleep', data.sleep, fmt(data.sleep) + ' of stolen sleep');
   }
 
@@ -1206,12 +1317,12 @@
   }
 
   const VERDICTS = [
-    { max: 20, title: "Suspiciously productive", desc: "Either you're incredibly disciplined or you were a little too honest. Either way — impressive." },
-    { max: 35, title: "Average human", desc: "You waste time — but so does everyone. Awareness is already the first step toward change." },
-    { max: 50, title: "There's a serious leak", desc: "A significant chunk of your time and money is quietly slipping away. Small habit shifts add up fast." },
-    { max: 65, title: "Half your life, gone", desc: "Seeing this number is uncomfortable. Good. That discomfort is the beginning of something different." },
-    { max: 80, title: "Urgent intervention needed", desc: "The majority of your life has been running on autopilot. It's not too late — but the clock is ticking." },
-    { max: 101, title: "Legendary waste", desc: "It takes courage to be this honest with yourself. That's the hardest part. The rest is just decisions." }
+    { max: 20, title: "Suspiciously clean", desc: "Either you're one of the rare few who actually controls their time — or you lowballed every answer. We'll take it." },
+    { max: 35, title: "Wasting away, right on schedule", desc: "You're burning through your one life at a perfectly average rate. Congratulations on being gloriously mediocre at existing." },
+    { max: 50, title: "Half asleep at the wheel", desc: "A massive chunk of your existence has quietly evaporated. It didn't happen in one catastrophic moment — it dripped away, day by day. That's the terrifying part." },
+    { max: 65, title: "Your life is a waiting room", desc: "You've been sitting in the waiting room of your own existence. Nobody is going to call your name. You have to walk through the door yourself — and you keep not doing it." },
+    { max: 80, title: "The machine ate you", desc: "Algorithms, inertia, and autopilot took the wheel and you handed it over without a fight. The majority of your waking hours are gone — not stolen. Surrendered." },
+    { max: 101, title: "A monument to drift", desc: "You showed up to your own life and spent most of it elsewhere. This isn't dramatic failure — it's something quieter and sadder: a slow, comfortable disappearance." }
   ];
 
   function showResult() {
@@ -1219,6 +1330,11 @@
     document.getElementById('result').style.display = 'block';
     document.getElementById('progressBar').style.width = '100%';
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const age = data.age || 30;
+    const sleepPerDay = data.sleepPerDay || 7;
+    const awakeHoursPerDay = 24 - sleepPerDay;
+    const awakeYears = (age * awakeHoursPerDay / 24).toFixed(1);
 
     const netflix = data.netflix || 0;
     const rel = data.rel || 0;
@@ -1231,39 +1347,50 @@
 
     const totalHours = netflix + rel + sm + traffic + sleep + proj;
     const totalMoney = gym + food;
-    const dailyWaste = totalHours / (5 * 365);
-    const lifeHours = 30 * 365 * 16;
+
+    const lifeHours = age * 365 * awakeHoursPerDay;
     const wasteScore = Math.min(Math.round((totalHours / lifeHours) * 100), 99);
+
+    const dailyWaste = totalHours / Math.max(age * 365, 1);
 
     const verdict = VERDICTS.find(v => wasteScore < v.max) || VERDICTS[VERDICTS.length - 1];
 
     document.getElementById('waste-score').textContent = wasteScore + '%';
+    document.getElementById('verdict-label').textContent = 'of your ' + awakeYears + ' conscious years, burned';
     document.getElementById('verdict-title').textContent = verdict.title;
     document.getElementById('verdict-desc').textContent = verdict.desc;
     document.getElementById('total-hours').textContent = fmt(totalHours);
-    document.getElementById('total-hours-sub').textContent = (totalHours / 8760).toFixed(1) + ' years of your life';
+    document.getElementById('total-hours-sub').textContent = (totalHours / 8760).toFixed(1) + ' years of your waking life';
     document.getElementById('total-money').textContent = fmtMoney(totalMoney);
     document.getElementById('daily-waste').textContent = dailyWaste.toFixed(1) + 'h';
+
+    document.getElementById('awake-years').textContent = awakeYears + ' yrs';
+    document.getElementById('awake-years-sub').textContent = 'out of ' + age + ' years alive — sleep subtracted';
 
     let couldDo = '', couldDoSub = '';
     if (totalHours > 17520) { couldDo = '2+ years'; couldDoSub = 'traveled the entire world'; }
     else if (totalHours > 8760) { couldDo = '1 year'; couldDoSub = 'mastered a new language'; }
     else if (totalHours > 4000) { couldDo = '4,000+ hrs'; couldDoSub = 'become a domain expert'; }
     else if (totalHours > 1000) { couldDo = '1,000+ hrs'; couldDoSub = 'written a book'; }
-    else { couldDo = fmt(totalHours); couldDoSub = 'done something meaningful'; }
+    else { couldDo = fmt(totalHours); couldDoSub = 'done something that actually mattered'; }
 
     document.getElementById('could-do').textContent = couldDo;
     document.getElementById('could-do-sub').textContent = couldDoSub;
 
+    const dailyDrip = (data.netflixDaily || 0) + (data.smDaily || 0) + (data.trafficDaily || 0) + (data.sleepLateDaily || 0);
+    document.getElementById('proj-5').textContent = fmt(dailyDrip * 365 * 5);
+    document.getElementById('proj-10').textContent = fmt(dailyDrip * 365 * 10);
+    document.getElementById('proj-daily').textContent = dailyDrip.toFixed(1) + ' hrs/day draining away';
+
     const items = [
-      { icon: '📺', title: 'Streaming & TV', sub: 'Screen time', val: fmt(netflix), raw: netflix, type: 'time' },
-      { icon: '📱', title: 'Social Media', sub: 'Doom-scrolling', val: fmt(sm), raw: sm, type: 'time' },
-      { icon: '🚗', title: 'Commuting', sub: 'In transit', val: fmt(traffic), raw: traffic, type: 'time' },
-      { icon: '😴', title: 'Late Nights', sub: 'Stolen sleep', val: fmt(sleep), raw: sleep, type: 'time' },
-      { icon: '💔', title: 'Ended Relationships', sub: 'Time invested', val: fmt(rel), raw: rel, type: 'time' },
-      { icon: '💡', title: 'Abandoned Projects', sub: 'Unfinished work', val: fmt(proj), raw: proj, type: 'time' },
-      { icon: '🏋️', title: 'Unused Gym Memberships', sub: 'Paid without going', val: fmtMoney(gym), raw: gym, type: 'money' },
-      { icon: '🍔', title: 'Takeout & Eating Out', sub: 'Restaurant & delivery', val: fmtMoney(food), raw: food, type: 'money' },
+      { icon: '📺', title: 'Streaming & TV', sub: 'Screen time', val: fmt(netflix), raw: netflix },
+      { icon: '📱', title: 'Social Media', sub: 'Doom-scrolling', val: fmt(sm), raw: sm },
+      { icon: '🚗', title: 'Commuting', sub: 'In transit', val: fmt(traffic), raw: traffic },
+      { icon: '😴', title: 'Late Nights', sub: 'Stolen sleep', val: fmt(sleep), raw: sleep },
+      { icon: '💔', title: 'Ended Relationships', sub: 'Time invested', val: fmt(rel), raw: rel },
+      { icon: '💡', title: 'Abandoned Projects', sub: 'Unfinished work', val: fmt(proj), raw: proj },
+      { icon: '🏋️', title: 'Unused Gym Memberships', sub: 'Paid without going', val: fmtMoney(gym), raw: gym },
+      { icon: '🍔', title: 'Takeout & Eating Out', sub: 'Restaurant & delivery', val: fmtMoney(food), raw: food },
     ].filter(i => i.raw > 0);
 
     const breakdown = document.getElementById('breakdown-list');
@@ -1279,9 +1406,9 @@
     const procrText = data.procrType ? procrLabels[data.procrType] : 'an important decision';
     const procrYears = data.procr || 0;
 
-    let quote = `You've spent a total of <strong>${fmt(totalHours)}</strong> on screens, traffic, and habits that didn't serve you. <strong>${fmtMoney(totalMoney)}</strong> paid for things you didn't use. `;
-    if (procrYears > 0) quote += `And you've been avoiding ${procrText} for <strong>${procrYears} year${procrYears !== 1 ? 's' : ''}</strong>. `;
-    quote += `The past is fixed. What happens next isn't.`;
+    let quote = `You are <strong>${age} years old</strong>. Of those years, you've been truly awake for roughly <strong>${awakeYears}</strong>. In that conscious time, you burned <strong>${fmt(totalHours)}</strong> — <strong>${(totalHours / 8760).toFixed(1)} years</strong> — on screens, commutes, and habits that led nowhere. <strong>${fmtMoney(totalMoney)}</strong> paid for things that didn't move your life forward. `;
+    if (procrYears > 0) quote += `You have been putting off ${procrText} for <strong>${procrYears} year${procrYears !== 1 ? 's' : ''}</strong>. That's not being busy — that's choosing avoidance, over and over, until it became your default. `;
+    quote += `If nothing changes, add another <strong>${fmt(dailyDrip * 365 * 5)}</strong> to that number in just five years. The clock doesn't stop. What happens next is entirely on you.`;
     document.getElementById('summary-quote').innerHTML = quote;
 
     data._score = wasteScore;
@@ -1291,17 +1418,17 @@
   }
 
   function copyResult() {
-    const text = `My WastedMeter Score 🔥\n\n${data._score}% of my life wasted\nTime: ${fmt(data._totalHours)}\nMoney: ${fmtMoney(data._totalMoney)}\nVerdict: "${data._verdictTitle}"\n\nCalculate yours → wastedmeter.com`;
+    const text = `My WastedMeter Score 🔥\n\n${data._score}% of my waking life wasted\nTime: ${fmt(data._totalHours)}\nMoney: ${fmtMoney(data._totalMoney)}\nVerdict: "${data._verdictTitle}"\n\nCalculate yours → wastedmeter.com`;
     navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard!'));
   }
 
   function shareTwitter() {
-    const text = encodeURIComponent(`I wasted ${data._score}% of my life — "${data._verdictTitle}"\n\nWastedMeter just humbled me 🔥\n\nCalculate yours → wastedmeter.com`);
+    const text = encodeURIComponent(`I wasted ${data._score}% of my waking life — "${data._verdictTitle}"\n\nWastedMeter just humbled me 🔥\n\nCalculate yours → wastedmeter.com`);
     window.open('https://twitter.com/intent/tweet?text=' + text, '_blank');
   }
 
   function shareWhatsapp() {
-    const text = encodeURIComponent(`My WastedMeter score: ${data._score}% of my life wasted. "${data._verdictTitle}" — Check yours: wastedmeter.com`);
+    const text = encodeURIComponent(`My WastedMeter score: ${data._score}% of my waking life wasted. "${data._verdictTitle}" — Check yours: wastedmeter.com`);
     window.open('https://wa.me/?text=' + text, '_blank');
   }
 
